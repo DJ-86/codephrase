@@ -14,7 +14,7 @@ api.interceptors.request.use((config) => {
     return config;
 });
 
-export const AuthAPI = {
+export const authAPI = {
     register: (email, password, username) => 
         api.post('auth/register', { email, password, username}),
     login: (email, password) =>
@@ -26,7 +26,7 @@ export const challengeAPI = {
         api.get(`/challenges/${id}`),
     verify: (challengeId, code) =>
         api.post('/verify', {challengeId, code}),
-},
+};
 
 export const progressAPI = {
     getUserProgress: () => api.get('/user/progress')
