@@ -10,6 +10,7 @@ app.use(express.json());
 
 app.use('/api/challenges', require('./routes/challenges'));
 app.use('/api/auth', require('./routes/auth'));
+app.use('/api/verify', require('./routes/verify'));
 
 // Health check
 app.get('/health', (req, res) => {

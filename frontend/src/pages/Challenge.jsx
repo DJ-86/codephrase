@@ -7,8 +7,8 @@ export default function Challenge() {
   const navigate = useNavigate();
   const [challenge, setChallengeData] = useState(null);
   const [code, setCode] = useState('');
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchChallenge = async () => {
@@ -27,8 +27,24 @@ export default function Challenge() {
   }, [id]);
 
   const handleSubmit = async () => {
-    // TODO: verify code here
-    console.log('Submitting code:', code);
+    setLoading(true);
+    setError('');
+    
+    try {
+      const response = await challengeAPI.verify(challenge.id, code);
+    
+      if (response.data.passed) {
+        console.log('Challenge passed!');
+        console.log('Breakdown', response.data.breakdown);
+        // results page code here
+      } else {
+        setError(response.data.breakdown || 'Challenge failed');
+      }
+    } catch (err) {
+      setError(err.response?.data?.error || 'Verification failed');
+    } finally {
+      setLoading(false);
+    }
   };
 
   if (loading) return <p>Loading challenge...</p>;
@@ -83,18 +99,20 @@ export default function Challenge() {
           />
           <button
             onClick={handleSubmit}
+            disabled={loading}
             style={{
-              width: '100%',
-              padding: '10px',
-              backgroundColor: '#1F4E78',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              fontSize: '16px'
+            width: '100%',
+            padding: '10px',
+            backgroundColor: '#1F4E78',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            fontSize: '16px',
+            opacity: loading ? 0.6 : 1,
             }}
           >
-            Submit
+            {loading ? 'Verifying...' : 'Submit'}
           </button>
         </div>
       </div>
