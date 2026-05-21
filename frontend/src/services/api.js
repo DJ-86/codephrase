@@ -25,6 +25,12 @@ export const progressAPI = {
     getUserProgress: () => api.get('progress')
 };
 
+export const conceptAPI = {
+  getAllConcepts: () => api.get('/concepts'),
+  getChallengesByConcept: (slug) => api.get(`/concepts/${slug}/challenges`),
+};
+
+
 export const challengeAPI = {
   getChallenge: (id) => api.get(`/challenges/${id}`),
   verify: (challengeId, code) =>

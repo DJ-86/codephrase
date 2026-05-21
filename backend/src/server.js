@@ -14,6 +14,7 @@ app.use('/api/auth', require('./routes/auth'));
 app.use('/api/verify', require('./routes/verify'));
 app.use('/api/progress', authMiddleware, require('./routes/progress'));
 app.use('/api/submit', require('./routes/submit'));
+app.use('/api/concepts', require('./routes/concepts'));
 
 // Health check
 app.get('/health', (req, res) => {

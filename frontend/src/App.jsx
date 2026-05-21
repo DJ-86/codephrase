@@ -3,6 +3,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dashboard from './pages/Dashboard';
 import Challenge from './pages/Challenge';
+import ConceptDetail from './pages/ConceptDetail';
 import './App.css'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/challenge/:id" element={<Challenge />} />
         <Route path="/challenge" element={<Challenge />} />
+        2<Route path="/concept/:slug" element={<ConceptDetail />} />
       </Routes>
     </Router>
   );
