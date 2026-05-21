@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { progressAPI } from '../services/api';
 
 export default function Dashboard() {
   const [user, setUser] = useState(null);
+  const [progress, setProgress] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -12,6 +14,17 @@ export default function Dashboard() {
       return;
     }
     setUser(JSON.parse(storedUser));
+
+    // Fetch progress
+    const fetchProgress = async () => {
+      try {
+        const response = await progressAPI.getUserProgress();
+        setProgress(response.data);
+      } catch (error) {
+        console.error('Failed to fetch progress:', error);
+      }
+    };
+    fetchProgress();
   }, [navigate]);
 
   const handleLogout = () => {
@@ -28,8 +41,8 @@ export default function Dashboard() {
       <h2>Welcome, {user.username}!</h2>
 
       <div style={{ marginTop: '30px' }}>
-        <h3>Progress</h3>
-        <p>You've completed 0/25 concepts</p>
+        <h3>📊 Progress</h3>
+        <p>You've completed {progress?.completed || 0}/{progress?.total || 3} concepts</p>
         <div style={{
           width: '100%',
           height: '20px',
@@ -39,10 +52,29 @@ export default function Dashboard() {
         }}>
           <div style={{
             height: '100%',
-            width: '0%',
+            width: `${progress ? (progress.completed / progress.total) * 100 : 0}%`,
             backgroundColor: '#1F4E78',
           }}></div>
         </div>
+      </div>
+
+      <div style={{ marginTop: '30px' }}>
+        <h3>🎯 Start Learning</h3>
+        <button
+          onClick={() => navigate('/challenge')}
+          style={{
+            padding: '15px 20px',
+            backgroundColor: '#1F4E78',
+            color: 'white',
+            border: 'none',
+            borderRadius: '4px',
+            cursor: 'pointer',
+            width: '100%',
+            fontSize: '16px',
+          }}
+        >
+          Start First Challenge
+        </button>
       </div>
 
       <div style={{ marginTop: '30px' }}>

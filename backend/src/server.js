@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const authMiddleware = require('./middleware/auth');
 require('dotenv').config();
 
 const app = express();
@@ -11,6 +12,8 @@ app.use(express.json());
 app.use('/api/challenges', require('./routes/challenges'));
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/verify', require('./routes/verify'));
+app.use('/api/progress', authMiddleware, require('./routes/progress'));
+app.use('/api/submit', require('./routes/submit'));
 
 // Health check
 app.get('/health', (req, res) => {
