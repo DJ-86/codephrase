@@ -9,6 +9,7 @@ export default function Challenge() {
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [results, setResults] = useState(null);
 
   useEffect(() => {
     const fetchChallenge = async () => {
@@ -26,19 +27,18 @@ export default function Challenge() {
     fetchChallenge();
   }, [id]);
 
+
   const handleSubmit = async () => {
     setLoading(true);
     setError('');
-    
+    setResults(null);
+
     try {
       const response = await challengeAPI.verify(challenge.id, code);
-    
+      setResults(response.data);
+
       if (response.data.passed) {
-        console.log('Challenge passed!');
-        console.log('Breakdown', response.data.breakdown);
-        // results page code here
-      } else {
-        setError(response.data.breakdown || 'Challenge failed');
+        await challengeAPI.submit(challenge.id, true);
       }
     } catch (err) {
       setError(err.response?.data?.error || 'Verification failed');
@@ -47,6 +47,7 @@ export default function Challenge() {
     }
   };
 
+  
   if (loading) return <p>Loading challenge...</p>;
   if (error) return <p style={{ color: 'red' }}>{error}</p>;
   if (!challenge) return <p>No challenge found</p>;
@@ -114,6 +115,28 @@ export default function Challenge() {
           >
             {loading ? 'Verifying...' : 'Submit'}
           </button>
+
+          {results && (
+          <div style={{
+            marginTop: '20px',
+            padding: '15px',
+            backgroundColor: results.passed ? '#d4edda' : '#f8d7da',
+            borderRadius: '4px',
+            border: `2px solid ${results.passed ? '#28a745' : '#dc3545'}`
+          }}>
+            <h3>{results.passed ? '✅ Passed!' : '❌ Failed'}</h3>
+            {results.output && (
+              <div>
+                <p><strong>Output:</strong></p>
+                <pre style={{ backgroundColor: '#f5f5f5', padding: '10px', borderRadius: '4px' }}>
+                  {results.output}
+                </pre>
+              </div>
+            )}
+            <p><strong>Breakdown:</strong> {results.breakdown}</p>
+            {results.error && <p style={{ color: 'red' }}>Error: {results.error}</p>}
+          </div>
+        )}
         </div>
       </div>
     </div>

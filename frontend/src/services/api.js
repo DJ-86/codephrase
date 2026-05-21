@@ -21,15 +21,21 @@ export const authAPI = {
         api.post('auth/login', { email, password}),
 };
 
-export const challengeAPI = {
-    getChallenge: (id) => 
-        api.get(`/challenges/${id}`),
-    verify: (challengeId, code) =>
-        api.post('/verify', {challengeId, code}),
-};
-
 export const progressAPI = {
-    getUserProgress: () => api.get('/user/progress')
+    getUserProgress: () => api.get('progress')
 };
 
+export const conceptAPI = {
+  getAllConcepts: () => api.get('/concepts'),
+  getChallengesByConcept: (slug) => api.get(`/concepts/${slug}/challenges`),
+};
+
+
+export const challengeAPI = {
+  getChallenge: (id) => api.get(`/challenges/${id}`),
+  verify: (challengeId, code) =>
+    api.post('/verify', { challengeId, code }),
+  submit: (challengeId, passed) =>
+    api.post('/submit', { challengeId, passed }),
+};
 export default api;
