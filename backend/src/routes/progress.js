@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../db');
+const authMiddleware = require('../middleware/auth');
 
-// GET /api/progress - get user's progress
-router.get('/', async (req, res) => {
+router.get('/', authMiddleware, async (req, res) => {
   try {
     const userId = req.user?.userId;
     
@@ -11,19 +11,37 @@ router.get('/', async (req, res) => {
       return res.status(401).json({ error: 'Not authenticated' });
     }
 
-   const result = await db.query(
-  `SELECT 
-    COUNT(CASE WHEN up.completed = true THEN 1 END) as completed,
-    COUNT(DISTINCT c.id) as total
-   FROM concepts c
-   LEFT JOIN user_progress up ON c.id = up.concept_id AND up.user_id = $1`,
-  [userId]
-);
+    // Get total concepts
+    const totalResult = await db.query('SELECT COUNT(*) as total FROM concepts');
+    const total = parseInt(totalResult.rows[0].total);
 
-    const row = result.rows[0];
+    // Get completed concepts (where user passed all challenges)
+    const completedResult = await db.query(
+      `SELECT COUNT(DISTINCT c.id) as completed
+       FROM concepts c
+       WHERE (
+         SELECT COUNT(*)
+         FROM challenges ch
+         WHERE ch.concept_id = c.id
+           AND ch.id IN (
+             SELECT DISTINCT challenge_id
+             FROM submissions
+             WHERE user_id = $1 AND passed = true
+           )
+       ) = (
+         SELECT COUNT(*)
+         FROM challenges ch2
+         WHERE ch2.concept_id = c.id
+       )
+       AND (SELECT COUNT(*) FROM challenges WHERE concept_id = c.id) > 0`,
+      [userId]
+    );
+
+    const completed = parseInt(completedResult.rows[0].completed) || 0;
+
     res.json({
-      completed: parseInt(row.completed) || 0,
-      total: parseInt(row.total) || 0
+      completed,
+      total
     });
   } catch (error) {
     res.status(500).json({ error: error.message });
