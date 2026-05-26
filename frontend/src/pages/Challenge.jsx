@@ -38,10 +38,10 @@ const handleSubmit = async () => {
 
     if (response.data.passed) {
       await challengeAPI.submit(challenge.id, code, true);
-      // Don't reload - let the button handle navigation
     }
   } catch (err) {
-    setError(err.response?.data?.error || 'Verification failed');
+    console.error('Error:', err);
+    setError(err?.response?.data?.error || err?.message || 'Verification failed');
   } finally {
     setLoading(false);
   }
