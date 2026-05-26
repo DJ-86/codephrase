@@ -1,6 +1,7 @@
 const db = require('./index');
 
 const seedData = async () => {
+
   try {
     console.log('🌱 Starting seed...');
 
@@ -28,7 +29,7 @@ const seedData = async () => {
         title: 'Create and assign variables',
         description: 'Declare three variables: name (your name), age (your age), and city (your city). Assign values to each.',
         starterCode: `// Declare and assign three variables here`,
-        expectedMethod: 'let or const declarations',
+        expectedMethod: 'let',
         testCode: `// Variables should be defined with values`,
         breakdown: 'You successfully stored three pieces of information in variables. Now you can use them anywhere in your code.'
       },
@@ -37,7 +38,7 @@ const seedData = async () => {
         description: 'Declare a variable with let, assign it a value, then change it to a different value. Show both assignments.',
         starterCode: `let message = "Hello";
 // Now reassign it to "Goodbye"`,
-        expectedMethod: 'let with reassignment',
+        expectedMethod: 'let',
         testCode: `// Variable should be reassigned`,
         breakdown: 'You changed the value of a variable. That\'s why we use let—it allows reassignment. const would give an error here.'
       },
@@ -46,7 +47,7 @@ const seedData = async () => {
         description: 'Try to reassign a const variable and see what happens. Explain why it fails.',
         starterCode: `const favorite = "pizza";
 // Try to reassign it to "sushi"`,
-        expectedMethod: 'const declaration',
+        expectedMethod: 'const',
         testCode: `// const should prevent reassignment`,
         breakdown: 'const prevents reassignment. Use const by default, only use let when you need to change the value later.'
       },
@@ -55,7 +56,7 @@ const seedData = async () => {
         description: 'Declare a variable, then use it in a console.log(). Don\'t assign a value first—use it undefined.',
         starterCode: `let empty;
 // Try to use "empty" here`,
-        expectedMethod: 'let declaration and usage',
+        expectedMethod: 'let',
         testCode: `// Variable should be declared`,
         breakdown: 'Variables declared without assignment have the value undefined. This is often a bug—always assign a value when you create a variable.'
       },
@@ -63,7 +64,7 @@ const seedData = async () => {
         title: 'Follow naming conventions',
         description: 'Declare variables for: user first name, user last name, account balance. Use camelCase naming.',
         starterCode: `// Use camelCase: firstName, lastName, accountBalance`,
-        expectedMethod: 'camelCase naming',
+        expectedMethod: 'const',
         testCode: `// Variables should follow camelCase`,
         breakdown: 'camelCase is the JavaScript standard. It makes code readable and consistent with other developers\' code.'
       },
@@ -71,7 +72,7 @@ const seedData = async () => {
         title: 'Store user data for a form',
         description: 'You\'re building a signup form. Declare variables for: email, password, and confirmPassword. Assign realistic example values.',
         starterCode: `// Declare and assign form field variables`,
-        expectedMethod: 'const declarations with values',
+        expectedMethod: 'const',
         testCode: `// Should have email, password, confirmPassword`,
         breakdown: 'You\'ve built the data structure for a form. In a real app, these would come from user input, but the pattern is the same.'
       },
@@ -80,7 +81,7 @@ const seedData = async () => {
         description: 'Declare a variable as a number, then reassign it to a string. Show that JavaScript allows this (loose typing).',
         starterCode: `let value = 42;
 // Reassign it to "hello"`,
-        expectedMethod: 'let with type change',
+        expectedMethod: 'let',
         testCode: `// Type should change`,
         breakdown: 'JavaScript allows variables to change types. This flexibility is powerful but can be dangerous—always know what type you\'re working with.'
       }
@@ -101,8 +102,8 @@ const seedData = async () => {
     // ========================================
     const concept2 = await db.query(
       `INSERT INTO concepts (slug, title, description, use_case, explanation, difficulty, "order")
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING id`,
+   VALUES ($1, $2, $3, $4, $5, $6, $7)
+   RETURNING id`,
       [
         'types',
         'Primitive Types',
@@ -121,7 +122,7 @@ const seedData = async () => {
         description: 'Given these values: 42, "hello", true, undefined, null. Use typeof on each and log the result.',
         starterCode: `// Use typeof on: 42, "hello", true, undefined, null
 // Log each result`,
-        expectedMethod: 'typeof operator',
+        expectedMethod: 'typeof',
         testCode: `// Should use typeof on multiple values`,
         breakdown: 'You used typeof to identify each type. Notice typeof null returns "object"—that\'s a famous quirk in JavaScript!'
       },
@@ -131,7 +132,7 @@ const seedData = async () => {
         starterCode: `const stringNum = "42";
 const actualNum = 42;
 // Compare them with ===`,
-        expectedMethod: 'string and number primitives',
+        expectedMethod: 'const',
         testCode: `// Should have both string and number`,
         breakdown: 'Even though they look similar, "42" and 42 are completely different. This difference matters in calculations and comparisons.'
       },
@@ -141,7 +142,7 @@ const actualNum = 42;
         starterCode: `const isLoggedIn = true;
 const isAdmin = false;
 // Use these in if statements`,
-        expectedMethod: 'boolean primitives',
+        expectedMethod: 'const',
         testCode: `// Should have boolean values`,
         breakdown: 'Booleans power decisions in your code. If something is true, do this. If false, do that.'
       },
@@ -151,7 +152,7 @@ const isAdmin = false;
         starterCode: `const empty = null;
 let uninitialized;
 // Log both, compare with typeof`,
-        expectedMethod: 'null and undefined',
+        expectedMethod: 'const',
         testCode: `// Should have both null and undefined`,
         breakdown: 'null is intentional emptiness (you set it). undefined is accidental emptiness (variable not set). null === undefined is false, but == is true.'
       },
@@ -161,7 +162,7 @@ let uninitialized;
         starterCode: `console.log("5" + 3);
 console.log(5 + 3);
 // Are they the same?`,
-        expectedMethod: 'string and number interaction',
+        expectedMethod: 'const',
         testCode: `// Should show type coercion`,
         breakdown: 'When you add a string and a number, JavaScript converts both to strings and concatenates. This is type coercion—automatic conversion. It\'s powerful but dangerous.'
       },
@@ -171,7 +172,7 @@ console.log(5 + 3);
         starterCode: `// Test each value in an if statement
 const values = [0, "", null, undefined, false, true, 1, "hello"];
 // Log which are truthy/falsy`,
-        expectedMethod: 'typeof and conditional logic',
+        expectedMethod: 'const',
         testCode: `// Should test truthiness`,
         breakdown: 'In JavaScript, false, 0, "", null, undefined are falsy. Everything else is truthy. This matters in conditionals.'
       },
@@ -184,7 +185,7 @@ const values = [0, "", null, undefined, false, true, 1, "hello"];
   isVerified: true,
   bio: null
 };`,
-        expectedMethod: 'mixed primitive types',
+        expectedMethod: 'const',
         testCode: `// Should have mixed types`,
         breakdown: 'You\'ve built a real data structure with mixed types. Objects combine primitives into meaningful data.'
       }
@@ -193,7 +194,7 @@ const values = [0, "", null, undefined, false, true, 1, "hello"];
     for (const challenge of c2Challenges) {
       await db.query(
         `INSERT INTO challenges (concept_id, title, description, starter_code, expected_method, test_code, breakdown_template)
-         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
         [c2Id, challenge.title, challenge.description, challenge.starterCode, challenge.expectedMethod, challenge.testCode, challenge.breakdown]
       );
     }
@@ -205,8 +206,8 @@ const values = [0, "", null, undefined, false, true, 1, "hello"];
     // ========================================
     const concept3 = await db.query(
       `INSERT INTO concepts (slug, title, description, use_case, explanation, difficulty, "order")
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING id`,
+   VALUES ($1, $2, $3, $4, $5, $6, $7)
+   RETURNING id`,
       [
         'operators',
         'Operators: Arithmetic, Comparison, Logical',
@@ -225,7 +226,7 @@ const values = [0, "", null, undefined, false, true, 1, "hello"];
         description: 'Calculate: sum of 10 and 5, product of 4 and 3, remainder of 17 divided by 5.',
         starterCode: `const a = 10, b = 5, c = 4, d = 3, e = 17, f = 5;
 // Calculate sum, product, remainder`,
-        expectedMethod: 'arithmetic operators',
+        expectedMethod: 'const',
         testCode: `// Should use +, *, %`,
         breakdown: 'You used arithmetic operators. + adds, * multiplies, % gives remainder (modulo). These are the building blocks of math in code.'
       },
@@ -235,7 +236,7 @@ const values = [0, "", null, undefined, false, true, 1, "hello"];
         starterCode: `console.log("5" === 5);
 console.log("5" == 5);
 // Which is true?`,
-        expectedMethod: 'comparison operators',
+        expectedMethod: 'const',
         testCode: `// Should use === and ==`,
         breakdown: '=== is strict: "5" and 5 are different types, so false. == is loose: it converts types, so true. Always use === to avoid bugs.'
       },
@@ -246,7 +247,7 @@ console.log("5" == 5);
 const hasLicense = true;
 const canDrive = age >= 18 && hasLicense;
 // What is canDrive?`,
-        expectedMethod: 'logical AND operator',
+        expectedMethod: 'const',
         testCode: `// Should use &&`,
         breakdown: 'AND (&&) requires both conditions true. If either is false, the whole thing is false. This is how you check multiple requirements.'
       },
@@ -257,7 +258,7 @@ const canDrive = age >= 18 && hasLicense;
 const isModerator = true;
 const hasAccess = isAdmin || isModerator;
 // What is hasAccess?`,
-        expectedMethod: 'logical OR operator',
+        expectedMethod: 'const',
         testCode: `// Should use ||`,
         breakdown: 'OR (||) requires at least one condition true. If either is true, the whole thing is true. Use this for alternatives.'
       },
@@ -267,7 +268,7 @@ const hasAccess = isAdmin || isModerator;
         starterCode: `const isLoggedIn = false;
 const needsLogin = !isLoggedIn;
 // What is needsLogin?`,
-        expectedMethod: 'logical NOT operator',
+        expectedMethod: 'const',
         testCode: `// Should use !`,
         breakdown: 'NOT (!) flips true to false and false to true. Use this to invert conditions.'
       },
@@ -277,7 +278,7 @@ const needsLogin = !isLoggedIn;
         starterCode: `const num = 7;
 const isOdd = num % 2 === 1;
 // What is isOdd?`,
-        expectedMethod: 'modulo operator',
+        expectedMethod: 'const',
         testCode: `// Should use %`,
         breakdown: 'Modulo (%) gives the remainder. For odd/even: if number % 2 === 1, it\'s odd. If === 0, it\'s even.'
       },
@@ -289,7 +290,7 @@ const isModerator = false;
 const isLoggedIn = true;
 const isBanned = false;
 // Check permission with logical operators`,
-        expectedMethod: 'combined logical operators',
+        expectedMethod: 'const',
         testCode: `// Should combine &&, ||`,
         breakdown: 'You layered multiple conditions. This is how permission systems work—check multiple rules to decide access.'
       }
@@ -298,7 +299,7 @@ const isBanned = false;
     for (const challenge of c3Challenges) {
       await db.query(
         `INSERT INTO challenges (concept_id, title, description, starter_code, expected_method, test_code, breakdown_template)
-         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
         [c3Id, challenge.title, challenge.description, challenge.starterCode, challenge.expectedMethod, challenge.testCode, challenge.breakdown]
       );
     }
@@ -310,8 +311,8 @@ const isBanned = false;
     // ========================================
     const concept4 = await db.query(
       `INSERT INTO concepts (slug, title, description, use_case, explanation, difficulty, "order")
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING id`,
+   VALUES ($1, $2, $3, $4, $5, $6, $7)
+   RETURNING id`,
       [
         'control-flow',
         'Control Flow: if/else and switch',
@@ -330,7 +331,7 @@ const isBanned = false;
         description: 'Check if a number is positive or negative. Log "Positive" or "Negative".',
         starterCode: `const number = -5;
 // Use if/else to check sign`,
-        expectedMethod: 'if/else',
+        expectedMethod: 'if',
         testCode: `// Should use if/else`,
         breakdown: 'You made a decision based on a condition. That\'s if/else—the foundation of conditional logic.'
       },
@@ -339,7 +340,7 @@ const isBanned = false;
         description: 'Grade assignment: A (90+), B (80+), C (70+), F (<70). Use else if.',
         starterCode: `const score = 85;
 // Use else if for each grade threshold`,
-        expectedMethod: 'else if',
+        expectedMethod: 'if',
         testCode: `// Should use else if`,
         breakdown: 'You chained multiple conditions. else if lets you check many possibilities in order.'
       },
@@ -349,7 +350,7 @@ const isBanned = false;
         starterCode: `const age = 25;
 const hasLicense = true;
 // Nested if: check age, then license`,
-        expectedMethod: 'nested if',
+        expectedMethod: 'if',
         testCode: `// Should have nested if statements`,
         breakdown: 'Nested ifs check one condition, then another. This is readable but can get complex. Logical operators (&&) are often cleaner.'
       },
@@ -358,7 +359,7 @@ const hasLicense = true;
         description: 'Test what counts as true/false in an if: 0, "", null, undefined, false vs 1, "hi", true.',
         starterCode: `// Test falsy values: 0, "", null, undefined, false
 // Test truthy values: 1, "hello", true`,
-        expectedMethod: 'if with truthy/falsy',
+        expectedMethod: 'if',
         testCode: `// Should test truthiness`,
         breakdown: 'In conditionals, falsy values (0, "", null, undefined, false) act like false. Everything else is truthy. Remember this!'
       },
@@ -367,7 +368,7 @@ const hasLicense = true;
         description: 'Match day of week: 1 = Monday, 2 = Tuesday, etc. Use switch, not if/else.',
         starterCode: `const day = 3;
 // Use switch to match day number to name`,
-        expectedMethod: 'switch statement',
+        expectedMethod: 'switch',
         testCode: `// Should use switch`,
         breakdown: 'Switch is cleaner than if/else for many cases. Each case ends with break to avoid falling through.'
       },
@@ -377,7 +378,7 @@ const hasLicense = true;
         starterCode: `const age = 20;
 // Use ternary instead of if/else
 const status = age >= 18 ? "Adult" : "Minor";`,
-        expectedMethod: 'ternary operator',
+        expectedMethod: 'const',
         testCode: `// Should use ? :`,
         breakdown: 'Ternary is a concise if/else for simple decisions. Don\'t use for complex logic—it gets hard to read.'
       },
@@ -386,7 +387,7 @@ const status = age >= 18 ? "Adult" : "Minor";`,
         description: 'User access depends on role: admin (all access), moderator (most), user (limited), guest (minimal).',
         starterCode: `const userRole = "moderator";
 // Use switch or if/else to show access level`,
-        expectedMethod: 'if/else or switch',
+        expectedMethod: 'if',
         testCode: `// Should use control flow`,
         breakdown: 'This is how real apps work—check user role and grant different access. Control flow makes this possible.'
       }
@@ -395,20 +396,19 @@ const status = age >= 18 ? "Adult" : "Minor";`,
     for (const challenge of c4Challenges) {
       await db.query(
         `INSERT INTO challenges (concept_id, title, description, starter_code, expected_method, test_code, breakdown_template)
-         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
         [c4Id, challenge.title, challenge.description, challenge.starterCode, challenge.expectedMethod, challenge.testCode, challenge.breakdown]
       );
     }
 
     console.log('✅ Concept 4: Control Flow (7 challenges)');
-
     // ========================================
     // CONCEPT 5: Loops
     // ========================================
     const concept5 = await db.query(
       `INSERT INTO concepts (slug, title, description, use_case, explanation, difficulty, "order")
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING id`,
+   VALUES ($1, $2, $3, $4, $5, $6, $7)
+   RETURNING id`,
       [
         'loops',
         'Loops: for, while, forEach',
@@ -426,7 +426,7 @@ const status = age >= 18 ? "Adult" : "Minor";`,
         title: 'Basic for loop',
         description: 'Print numbers 1-10 using a for loop.',
         starterCode: `// for loop to print 1-10`,
-        expectedMethod: 'for loop',
+        expectedMethod: 'for',
         testCode: `// Should use for`,
         breakdown: 'A for loop with i = 0; i < 10; i++ counts from 0 to 9. Add 1 to print 1-10.'
       },
@@ -434,7 +434,7 @@ const status = age >= 18 ? "Adult" : "Minor";`,
         title: 'Countdown with for loop',
         description: 'Print numbers 10 down to 1 using a for loop.',
         starterCode: `// for loop to count down from 10`,
-        expectedMethod: 'for loop decrement',
+        expectedMethod: 'for',
         testCode: `// Should use for with decrement`,
         breakdown: 'Use i-- to decrement instead of i++. This counts down.'
       },
@@ -443,7 +443,7 @@ const status = age >= 18 ? "Adult" : "Minor";`,
         description: 'Repeat until a condition is false. Start with count = 0; while count < 5, log and increment.',
         starterCode: `let count = 0;
 // while loop until count >= 5`,
-        expectedMethod: 'while loop',
+        expectedMethod: 'while',
         testCode: `// Should use while`,
         breakdown: 'while loops run as long as the condition is true. When false, they stop. This is useful when you don\'t know iterations in advance.'
       },
@@ -452,7 +452,7 @@ const status = age >= 18 ? "Adult" : "Minor";`,
         description: 'Sum all numbers 1-100 using a loop and an accumulator variable.',
         starterCode: `let sum = 0;
 // Loop from 1 to 100, adding each to sum`,
-        expectedMethod: 'for loop with accumulator',
+        expectedMethod: 'for',
         testCode: `// Should accumulate values`,
         breakdown: 'Accumulators start at an initial value (0 for sum, 1 for product). Each iteration updates it. At the end, you have your result.'
       },
@@ -470,7 +470,7 @@ const status = age >= 18 ? "Adult" : "Minor";`,
         description: 'Loop through 1-10. Break at 6 (stop early). In another loop, continue at 5 (skip it).',
         starterCode: `// for loop with break at 6
 // for loop with continue at 5`,
-        expectedMethod: 'break and continue',
+        expectedMethod: 'for',
         testCode: `// Should use break and continue`,
         breakdown: 'break stops the loop immediately. continue skips to the next iteration. Use these for precise control.'
       },
@@ -483,7 +483,7 @@ const status = age >= 18 ? "Adult" : "Minor";`,
   { id: 3, price: 80, status: "paid" }
 ];
 // Loop and sum only paid orders`,
-        expectedMethod: 'for or forEach with conditional',
+        expectedMethod: 'forEach',
         testCode: `// Should loop with condition`,
         breakdown: 'This is real—you loop through items, check a condition, and accumulate results. Loops make this possible.'
       }
@@ -492,7 +492,7 @@ const status = age >= 18 ? "Adult" : "Minor";`,
     for (const challenge of c5Challenges) {
       await db.query(
         `INSERT INTO challenges (concept_id, title, description, starter_code, expected_method, test_code, breakdown_template)
-         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
         [c5Id, challenge.title, challenge.description, challenge.starterCode, challenge.expectedMethod, challenge.testCode, challenge.breakdown]
       );
     }
@@ -504,8 +504,8 @@ const status = age >= 18 ? "Adult" : "Minor";`,
     // ========================================
     const concept6 = await db.query(
       `INSERT INTO concepts (slug, title, description, use_case, explanation, difficulty, "order")
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING id`,
+   VALUES ($1, $2, $3, $4, $5, $6, $7)
+   RETURNING id`,
       [
         'functions',
         'Functions: Declaration, Parameters, Return',
@@ -523,7 +523,7 @@ const status = age >= 18 ? "Adult" : "Minor";`,
         title: 'Basic function',
         description: 'Write a function that takes a number and returns it doubled.',
         starterCode: `// function double(n) that returns n * 2`,
-        expectedMethod: 'function declaration',
+        expectedMethod: 'function',
         testCode: `// Should have function with return`,
         breakdown: 'You declared a function with a parameter and a return value. Now you can call double(5) anytime.'
       },
@@ -531,7 +531,7 @@ const status = age >= 18 ? "Adult" : "Minor";`,
         title: 'Multiple parameters',
         description: 'Write a function that takes two numbers and returns their sum.',
         starterCode: `// function add(a, b) that returns a + b`,
-        expectedMethod: 'function with multiple parameters',
+        expectedMethod: 'function',
         testCode: `// Should have 2 parameters`,
         breakdown: 'Functions can take multiple inputs. Each parameter is a separate value you can use in the function.'
       },
@@ -539,7 +539,7 @@ const status = age >= 18 ? "Adult" : "Minor";`,
         title: 'Calculate area',
         description: 'Write a function that calculates area of a rectangle (width × height).',
         starterCode: `// function area(width, height)`,
-        expectedMethod: 'function with calculation',
+        expectedMethod: 'function',
         testCode: `// Should calculate area`,
         breakdown: 'You used a function to encapsulate a calculation. This makes code reusable and readable.'
       },
@@ -547,7 +547,7 @@ const status = age >= 18 ? "Adult" : "Minor";`,
         title: 'No return value',
         description: 'Write a function that logs a message but doesn\'t return anything. Call it and see it returns undefined.',
         starterCode: `// function greet(name) that logs but doesn't return`,
-        expectedMethod: 'function without return',
+        expectedMethod: 'function',
         testCode: `// Should have function without explicit return`,
         breakdown: 'Functions without return statements implicitly return undefined. Some functions exist just for side effects (like logging).'
       },
@@ -564,7 +564,7 @@ function add(a, b) { return a + b; }`,
         title: 'Default parameters',
         description: 'Function with default parameter: greet(name = "Friend") logs "Hello, Friend" if no name given.',
         starterCode: `// function greet(name = "Friend")`,
-        expectedMethod: 'default parameters',
+        expectedMethod: 'function',
         testCode: `// Should have default parameter`,
         breakdown: 'Default parameters kick in if the caller doesn\'t provide a value. This prevents undefined errors.'
       },
@@ -573,7 +573,7 @@ function add(a, b) { return a + b; }`,
         description: 'Write functions: isValidEmail(email), isStrongPassword(password). Return true/false.',
         starterCode: `// isValidEmail: check for @ and .
 // isStrongPassword: check length >= 8`,
-        expectedMethod: 'function with conditional return',
+        expectedMethod: 'function',
         testCode: `// Should have validation logic`,
         breakdown: 'Validators are functions that check if data meets requirements. They\'re used everywhere in real apps.'
       }
@@ -582,7 +582,7 @@ function add(a, b) { return a + b; }`,
     for (const challenge of c6Challenges) {
       await db.query(
         `INSERT INTO challenges (concept_id, title, description, starter_code, expected_method, test_code, breakdown_template)
-         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
         [c6Id, challenge.title, challenge.description, challenge.starterCode, challenge.expectedMethod, challenge.testCode, challenge.breakdown]
       );
     }
@@ -594,8 +594,8 @@ function add(a, b) { return a + b; }`,
     // ========================================
     const concept7 = await db.query(
       `INSERT INTO concepts (slug, title, description, use_case, explanation, difficulty, "order")
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING id`,
+   VALUES ($1, $2, $3, $4, $5, $6, $7)
+   RETURNING id`,
       [
         'scope',
         'Scope & Context: Where variables exist',
@@ -617,7 +617,7 @@ function test() {
   let name = "Local";
   // Which name is used here?
 }`,
-        expectedMethod: 'scope and shadowing',
+        expectedMethod: 'let',
         testCode: `// Should show shadowing`,
         breakdown: 'The inner variable "shadows" the outer one. Inside the function, you use the local name. Outside, the global name. Same variable name, different values.'
       },
@@ -628,7 +628,7 @@ function test() {
   let blockScoped = "Only here";
 }
 // Try to log blockScoped here`,
-        expectedMethod: 'let block scope',
+        expectedMethod: 'let',
         testCode: `// Should show block scope`,
         breakdown: 'let respects block scope: { }. var doesn\'t—it\'s function-scoped. This is why let is preferred.'
       },
@@ -640,7 +640,7 @@ function test() {
   let blockScoped = "let here";
 }
 // Which can you access?`,
-        expectedMethod: 'var and let scope difference',
+        expectedMethod: 'let',
         testCode: `// Should show scope difference`,
         breakdown: 'var is function-scoped, ignoring blocks. let is block-scoped. Use let—it\'s the modern standard.'
       },
@@ -653,7 +653,7 @@ function test() {
     // Can you access outerVar here?
   }
 }`,
-        expectedMethod: 'nested functions and scope',
+        expectedMethod: 'function',
         testCode: `// Should access outer variable`,
         breakdown: 'Inner functions can access outer variables. This is called "closure"—a preview of a more advanced concept.'
       },
@@ -668,7 +668,7 @@ function outer() {
     // JavaScript looks: block → function → global
   }
 }`,
-        expectedMethod: 'scope chain understanding',
+        expectedMethod: 'let',
         testCode: `// Should access variables correctly`,
         breakdown: 'JavaScript looks for variables in this order: local block → function → global. First match wins. This is the scope chain.'
       },
@@ -681,7 +681,7 @@ function outer() {
     // What does "this" refer to here?
   }
 };`,
-        expectedMethod: 'this context in methods',
+        expectedMethod: 'const',
         testCode: `// Should use this correctly`,
         breakdown: 'In a method, this = the object the method belongs to. this.name gets the name property. this is context-dependent.'
       },
@@ -695,7 +695,7 @@ function outer() {
     getCount: function() { return count; }
   };
 })();`,
-        expectedMethod: 'closure and scope',
+        expectedMethod: 'const',
         testCode: `// Should show module pattern`,
         breakdown: 'This is a real pattern: only expose what\'s needed (public interface), keep the rest private. Scope and closures make this possible.'
       }
@@ -704,20 +704,19 @@ function outer() {
     for (const challenge of c7Challenges) {
       await db.query(
         `INSERT INTO challenges (concept_id, title, description, starter_code, expected_method, test_code, breakdown_template)
-         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
         [c7Id, challenge.title, challenge.description, challenge.starterCode, challenge.expectedMethod, challenge.testCode, challenge.breakdown]
       );
     }
 
     console.log('✅ Concept 7: Scope & Context (7 challenges)');
-
     // ========================================
     // CONCEPT 8: Objects & Properties
     // ========================================
     const concept8 = await db.query(
       `INSERT INTO concepts (slug, title, description, use_case, explanation, difficulty, "order")
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING id`,
+   VALUES ($1, $2, $3, $4, $5, $6, $7)
+   RETURNING id`,
       [
         'objects',
         'Objects & Properties: Store related data together',
@@ -740,7 +739,7 @@ function outer() {
   email: "alice@example.com"
 };
 // Access each property`,
-        expectedMethod: 'object creation and access',
+        expectedMethod: 'const',
         testCode: `// Should have object with properties`,
         breakdown: 'You grouped related data into one object. This is cleaner than three separate variables.'
       },
@@ -750,7 +749,7 @@ function outer() {
         starterCode: `const person = { name: "Bob", age: 30 };
 // Change name to "Bobby"
 // Change age to 31`,
-        expectedMethod: 'property mutation',
+        expectedMethod: 'const',
         testCode: `// Should mutate properties`,
         breakdown: 'Objects are mutable—you can change properties after creation. This is different from const strings/numbers.'
       },
@@ -759,7 +758,7 @@ function outer() {
         description: 'Create an object, then add a new property that wasn\'t there before.',
         starterCode: `const car = { brand: "Toyota", model: "Camry" };
 // Add a new property: color = "blue"`,
-        expectedMethod: 'property addition',
+        expectedMethod: 'const',
         testCode: `// Should add new property`,
         breakdown: 'JavaScript lets you add properties dynamically. You can expand objects anytime.'
       },
@@ -769,7 +768,7 @@ function outer() {
         starterCode: `const user = { name: "Alice", email: "alice@example.com" };
 const key = "email";
 // Access using the variable`,
-        expectedMethod: 'bracket notation with variable',
+        expectedMethod: 'const',
         testCode: `// Should use bracket notation`,
         breakdown: 'Bracket notation lets you use variables as keys. Dot notation (object.key) requires the key name literally.'
       },
@@ -784,7 +783,7 @@ const key = "email";
   }
 };
 // Access person.address.city`,
-        expectedMethod: 'nested objects',
+        expectedMethod: 'const',
         testCode: `// Should have nested object`,
         breakdown: 'Objects can contain other objects. Access nested properties with dots: object.nested.property.'
       },
@@ -798,7 +797,7 @@ const key = "email";
   }
 };
 // Call person.greet()`,
-        expectedMethod: 'methods on objects',
+        expectedMethod: 'const',
         testCode: `// Should have method`,
         breakdown: 'Functions on objects are called "methods". Inside a method, this = the object. Methods are how objects do things.'
       },
@@ -812,7 +811,7 @@ const key = "email";
   inStock: true,
   category: "Electronics"
 };`,
-        expectedMethod: 'object structure',
+        expectedMethod: 'const',
         testCode: `// Should have product object`,
         breakdown: 'This is how real apps model data. Each entity (product, user, order) is an object with properties.'
       }
@@ -821,20 +820,19 @@ const key = "email";
     for (const challenge of c8Challenges) {
       await db.query(
         `INSERT INTO challenges (concept_id, title, description, starter_code, expected_method, test_code, breakdown_template)
-         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
         [c8Id, challenge.title, challenge.description, challenge.starterCode, challenge.expectedMethod, challenge.testCode, challenge.breakdown]
       );
     }
 
     console.log('✅ Concept 8: Objects & Properties (7 challenges)');
-
     // ========================================
     // CONCEPT 9: Arrays & Indexing
     // ========================================
     const concept9 = await db.query(
       `INSERT INTO concepts (slug, title, description, use_case, explanation, difficulty, "order")
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING id`,
+   VALUES ($1, $2, $3, $4, $5, $6, $7)
+   RETURNING id`,
       [
         'arrays',
         'Arrays & Indexing: Ordered lists of data',
@@ -853,7 +851,7 @@ const key = "email";
         description: 'Create an array of fruits. Access the first, second, and last items.',
         starterCode: `const fruits = ["apple", "banana", "cherry"];
 // Access index 0, 1, and last`,
-        expectedMethod: 'array indexing',
+        expectedMethod: 'const',
         testCode: `// Should access by index`,
         breakdown: 'Arrays are zero-indexed: first item is [0]. You accessed items by their position—that\'s indexing.'
       },
@@ -862,7 +860,7 @@ const key = "email";
         description: 'Create an array and use .length to count items.',
         starterCode: `const colors = ["red", "green", "blue"];
 // Log the length`,
-        expectedMethod: 'array.length',
+        expectedMethod: 'const',
         testCode: `// Should use .length`,
         breakdown: '.length tells you how many items are in the array. It\'s 1 more than the last index.'
       },
@@ -871,7 +869,7 @@ const key = "email";
         description: 'Try to access an index that doesn\'t exist. See what JavaScript returns.',
         starterCode: `const numbers = [1, 2, 3];
 // Try to access index 10`,
-        expectedMethod: 'out of bounds',
+        expectedMethod: 'const',
         testCode: `// Should attempt out of bounds`,
         breakdown: 'Accessing an invalid index returns undefined. This is often a bug—check .length before accessing.'
       },
@@ -880,7 +878,7 @@ const key = "email";
         description: 'Create an array, then change an item at a specific position.',
         starterCode: `const names = ["Alice", "Bob", "Carol"];
 // Change index 1 to "Bobby"`,
-        expectedMethod: 'array mutation',
+        expectedMethod: 'const',
         testCode: `// Should mutate array`,
         breakdown: 'Arrays are mutable: you can change, add, or remove items. arr[index] = newValue changes an item.'
       },
@@ -889,7 +887,7 @@ const key = "email";
         description: 'Create an array with different types: number, string, boolean, object.',
         starterCode: `const mixed = [42, "hello", true, { key: "value" }];
 // Log the array`,
-        expectedMethod: 'mixed type array',
+        expectedMethod: 'const',
         testCode: `// Should have mixed types`,
         breakdown: 'JavaScript arrays can hold any type, even mixed. This flexibility is powerful but requires care.'
       },
@@ -902,7 +900,7 @@ const key = "email";
   [7, 8, 9]
 ];
 // Access the middle item: grid[1][1]`,
-        expectedMethod: 'nested arrays',
+        expectedMethod: 'const',
         testCode: `// Should have 2D array`,
         breakdown: 'Nested arrays are useful for grids, matrices, or any 2D data. Access with [row][col] indexing.'
       },
@@ -915,7 +913,7 @@ const key = "email";
   { id: 3, name: "Keyboard", quantity: 1 }
 ];
 // Access first item's price`,
-        expectedMethod: 'array of objects',
+        expectedMethod: 'const',
         testCode: `// Should have array of objects`,
         breakdown: 'This is real data modeling: array of objects. Each product is an object, the collection is an array.'
       }
@@ -924,7 +922,7 @@ const key = "email";
     for (const challenge of c9Challenges) {
       await db.query(
         `INSERT INTO challenges (concept_id, title, description, starter_code, expected_method, test_code, breakdown_template)
-         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
         [c9Id, challenge.title, challenge.description, challenge.starterCode, challenge.expectedMethod, challenge.testCode, challenge.breakdown]
       );
     }
@@ -936,8 +934,8 @@ const key = "email";
     // ========================================
     const concept10 = await db.query(
       `INSERT INTO concepts (slug, title, description, use_case, explanation, difficulty, "order")
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING id`,
+   VALUES ($1, $2, $3, $4, $5, $6, $7)
+   RETURNING id`,
       [
         'map',
         'Array.map(): Transform each element',
@@ -968,7 +966,7 @@ const key = "email";
   { name: "Mouse", price: 25 }
 ];
 // Use .map() to get prices array`,
-        expectedMethod: 'map with property access',
+        expectedMethod: 'map',
         testCode: `// Should use .map() and access property`,
         breakdown: 'You extracted one property from each object. .map() transforms the structure of data.'
       },
@@ -977,7 +975,7 @@ const key = "email";
         description: 'Array of numbers. Use .map() to multiply each by 2.',
         starterCode: `const numbers = [1, 2, 3, 4];
 // Use .map() to double each`,
-        expectedMethod: 'map with calculation',
+        expectedMethod: 'map',
         testCode: `// Should use .map() with multiplication`,
         breakdown: 'You applied math to each element. .map() is perfect for calculations on every item.'
       },
@@ -986,7 +984,7 @@ const key = "email";
         description: 'Array of numbers. Use .map() with ternary to mark odd/even: "3 (odd)", "4 (even)".',
         starterCode: `const numbers = [1, 2, 3, 4, 5];
 // Use .map() with ternary to label odd/even`,
-        expectedMethod: 'map with conditional',
+        expectedMethod: 'map',
         testCode: `// Should use .map() with ternary`,
         breakdown: 'You combined .map() with conditional logic. This is powerful for conditional transformations.'
       },
@@ -995,7 +993,7 @@ const key = "email";
         description: 'Transform an array twice: first uppercase names, then add prefix "Mr. ".',
         starterCode: `const names = ["alice", "bob"];
 // Chain .map().map() or do both in one`,
-        expectedMethod: 'chained map or map with combo',
+        expectedMethod: 'map',
         testCode: `// Should use .map()`,
         breakdown: 'You chained transformations or did them together. Multiple transforms on data is common.'
       },
@@ -1007,7 +1005,7 @@ const key = "email";
   { name: "Bob", age: 30 }
 ];
 // Use .map() with template literal`,
-        expectedMethod: 'map with template literal',
+        expectedMethod: 'map',
         testCode: `// Should use .map() and template literals`,
         breakdown: 'Template literals in .map() are perfect for formatting data. You\'re combining transformation with formatting.'
       },
@@ -1020,7 +1018,7 @@ const key = "email";
   { name: "Keyboard", price: 75 }
 ];
 // Use .map() to format for display`,
-        expectedMethod: 'map for formatting',
+        expectedMethod: 'map',
         testCode: `// Should use .map()`,
         breakdown: 'This is real: transform data for display. .map() prepares data for the UI.'
       }
@@ -1029,20 +1027,19 @@ const key = "email";
     for (const challenge of c10Challenges) {
       await db.query(
         `INSERT INTO challenges (concept_id, title, description, starter_code, expected_method, test_code, breakdown_template)
-         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
         [c10Id, challenge.title, challenge.description, challenge.starterCode, challenge.expectedMethod, challenge.testCode, challenge.breakdown]
       );
     }
 
     console.log('✅ Concept 10: Array.map() (7 challenges)');
-
     // ========================================
     // CONCEPT 11: Array Methods - filter
     // ========================================
     const concept11 = await db.query(
       `INSERT INTO concepts (slug, title, description, use_case, explanation, difficulty, "order")
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING id`,
+   VALUES ($1, $2, $3, $4, $5, $6, $7)
+   RETURNING id`,
       [
         'filter',
         'Array.filter(): Keep only elements that match',
@@ -1074,7 +1071,7 @@ const key = "email";
   { name: "Carol", age: 30 }
 ];
 // Use .filter() to keep only adults`,
-        expectedMethod: 'filter with property check',
+        expectedMethod: 'filter',
         testCode: `// Should use .filter()`,
         breakdown: 'You filtered by checking a property. This is how you filter datasets by criteria.'
       },
@@ -1083,7 +1080,7 @@ const key = "email";
         description: 'Mixed array. Use .filter() to keep only strings (or only numbers).',
         starterCode: `const mixed = [1, "hello", 2, "world", 3];
 // Use .filter() to keep only strings`,
-        expectedMethod: 'filter with typeof',
+        expectedMethod: 'filter',
         testCode: `// Should use .filter() and typeof`,
         breakdown: 'You filtered by type. typeof is useful in filters for type-based filtering.'
       },
@@ -1096,7 +1093,7 @@ const key = "email";
   { name: "Keyboard", price: 75, inStock: false }
 ];
 // Use .filter() with && condition`,
-        expectedMethod: 'filter with complex condition',
+        expectedMethod: 'filter',
         testCode: `// Should use .filter() with &&`,
         breakdown: 'You combined multiple conditions in .filter(). This is real: filtering by multiple criteria.'
       },
@@ -1105,7 +1102,7 @@ const key = "email";
         description: 'Array of items. Use .filter() with ! (NOT) to keep items that DON\'T match.',
         starterCode: `const items = [1, 2, 3, 4, 5];
 // Use .filter() to keep only items NOT === 3`,
-        expectedMethod: 'filter with NOT',
+        expectedMethod: 'filter',
         testCode: `// Should use .filter() with !`,
         breakdown: 'Inverse filters remove matching items. Use ! to negate the condition.'
       },
@@ -1114,7 +1111,7 @@ const key = "email";
         description: 'Array of strings. Use .filter() with .includes() to keep only emails with "@".',
         starterCode: `const emails = ["alice@example.com", "bob.com", "carol@test.com"];
 // Use .filter() with .includes() to verify @ symbol`,
-        expectedMethod: 'filter with method call',
+        expectedMethod: 'filter',
         testCode: `// Should use .filter() and .includes()`,
         breakdown: 'You combined .filter() with other methods. Chaining methods is powerful.'
       },
@@ -1128,7 +1125,7 @@ const key = "email";
 ];
 const search = "laptop";
 // Use .filter() with .toLowerCase().includes()`,
-        expectedMethod: 'filter with text search',
+        expectedMethod: 'filter',
         testCode: `// Should use .filter()`,
         breakdown: 'This is real: filtering search results. .filter() + .includes() is the pattern.'
       }
@@ -1137,20 +1134,19 @@ const search = "laptop";
     for (const challenge of c11Challenges) {
       await db.query(
         `INSERT INTO challenges (concept_id, title, description, starter_code, expected_method, test_code, breakdown_template)
-         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
         [c11Id, challenge.title, challenge.description, challenge.starterCode, challenge.expectedMethod, challenge.testCode, challenge.breakdown]
       );
     }
 
     console.log('✅ Concept 11: Array.filter() (7 challenges)');
-
     // ========================================
     // CONCEPT 12: Array Methods - reduce
     // ========================================
     const concept12 = await db.query(
       `INSERT INTO concepts (slug, title, description, use_case, explanation, difficulty, "order")
-       VALUES ($1, $2, $3, $4, $5, $6, $7)
-       RETURNING id`,
+   VALUES ($1, $2, $3, $4, $5, $6, $7)
+   RETURNING id`,
       [
         'reduce',
         'Array.reduce(): Combine all elements into one value',
@@ -1169,7 +1165,7 @@ const search = "laptop";
         description: 'Array of numbers. Use .reduce() to calculate the sum.',
         starterCode: `const numbers = [5, 10, 15, 20];
 // Use .reduce() to sum all`,
-        expectedMethod: 'reduce with addition',
+        expectedMethod: 'reduce',
         testCode: `// Should use .reduce()`,
         breakdown: 'You started with 0, then added each number. That\'s reduce: accumulate into one final value.'
       },
@@ -1178,7 +1174,7 @@ const search = "laptop";
         description: 'Array of numbers. Use .reduce() to calculate the product (multiply all).',
         starterCode: `const numbers = [2, 3, 4];
 // Use .reduce() to multiply all`,
-        expectedMethod: 'reduce with multiplication',
+        expectedMethod: 'reduce',
         testCode: `// Should use .reduce()`,
         breakdown: 'Start with 1 (identity for multiplication), multiply each number. .reduce() is flexible for any accumulation.'
       },
@@ -1187,7 +1183,7 @@ const search = "laptop";
         description: 'Array of items. Use .reduce() to count how many match a condition (e.g., > 5).',
         starterCode: `const numbers = [1, 6, 3, 8, 2, 9];
 // Use .reduce() to count numbers > 5`,
-        expectedMethod: 'reduce with counter',
+        expectedMethod: 'reduce',
         testCode: `// Should use .reduce()`,
         breakdown: 'You accumulated a counter. Each time the condition matched, increment. This is counting with reduce.'
       },
@@ -1200,7 +1196,7 @@ const search = "laptop";
   { name: "Banana", category: "fruit" }
 ];
 // Use .reduce() to group by category`,
-        expectedMethod: 'reduce to object',
+        expectedMethod: 'reduce',
         testCode: `// Should use .reduce()`,
         breakdown: 'You transformed an array into an object structure. This is data reshaping with reduce.'
       },
@@ -1209,7 +1205,7 @@ const search = "laptop";
         description: 'Array of names. Use .reduce() to build a single string: "Alice, Bob, Carol".',
         starterCode: `const names = ["Alice", "Bob", "Carol"];
 // Use .reduce() to join with ", "`,
-        expectedMethod: 'reduce with string concatenation',
+        expectedMethod: 'reduce',
         testCode: `// Should use .reduce()`,
         breakdown: 'You built a string by accumulating names. .reduce() can accumulate into any type: numbers, objects, strings.'
       },
@@ -1218,7 +1214,7 @@ const search = "laptop";
         description: 'Array of numbers. Use .reduce() to find the maximum value.',
         starterCode: `const numbers = [3, 7, 2, 9, 1];
 // Use .reduce() to find max`,
-        expectedMethod: 'reduce with comparison',
+        expectedMethod: 'reduce',
         testCode: `// Should use .reduce()`,
         breakdown: 'You compared each number with the accumulator, keeping the larger. Math operations with reduce.'
       },
@@ -1231,7 +1227,7 @@ const search = "laptop";
   { name: "Keyboard", price: 75, quantity: 1 }
 ];
 // Use .reduce() to calculate total: (price * quantity) summed`,
-        expectedMethod: 'reduce with calculation',
+        expectedMethod: 'reduce',
         testCode: `// Should use .reduce()`,
         breakdown: 'Real scenario: calculate total price. .reduce() combines multiple operations: multiply price × quantity, sum all. This is ecommerce logic.'
       }
@@ -1240,7 +1236,7 @@ const search = "laptop";
     for (const challenge of c12Challenges) {
       await db.query(
         `INSERT INTO challenges (concept_id, title, description, starter_code, expected_method, test_code, breakdown_template)
-         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
+     VALUES ($1, $2, $3, $4, $5, $6, $7)`,
         [c12Id, challenge.title, challenge.description, challenge.starterCode, challenge.expectedMethod, challenge.testCode, challenge.breakdown]
       );
     }
@@ -1253,6 +1249,7 @@ const search = "laptop";
     console.log('   84 Challenges');
     console.log('   All seeded and ready to go!');
     process.exit(0);
+
   } catch (error) {
     console.error('❌ Error seeding data:', error);
     process.exit(1);

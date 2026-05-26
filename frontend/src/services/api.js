@@ -33,9 +33,14 @@ export const conceptAPI = {
 export const challengeAPI = {
   getChallenge: (id) => api.get(`/challenges/${id}`),
   verify: (challengeId, code) =>
-    api.post('/verify', { challengeId, code }),
+    api.post('/verify', { challengeId, code }).catch(err => {
+      // Return the error response instead of throwing
+      if (err.response?.status === 400) {
+        return err.response;
+      }
+      throw err;
+    }),
   submit: (challengeId, code, passed) =>
     api.post('/submit', { challengeId, code, passed }),
 };
-
 export default api;
