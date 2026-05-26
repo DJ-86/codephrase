@@ -27,27 +27,26 @@ export default function Challenge() {
     fetchChallenge();
   }, [id]);
 
+const handleSubmit = async () => {
+  setLoading(true);
+  setError('');
+  setResults(null);
 
-  const handleSubmit = async () => {
-    setLoading(true);
-    setError('');
-    setResults(null);
+  try {
+    const response = await challengeAPI.verify(challenge.id, code);
+    setResults(response.data);
 
-    try {
-      const response = await challengeAPI.verify(challenge.id, code);
-      setResults(response.data);
-
-      if (response.data.passed) {
-        await challengeAPI.submit(challenge.id, true);
-      }
-    } catch (err) {
-      setError(err.response?.data?.error || 'Verification failed');
-    } finally {
-      setLoading(false);
+    if (response.data.passed) {
+      await challengeAPI.submit(challenge.id, code, true);
+      // Don't reload - let the button handle navigation
     }
-  };
+  } catch (err) {
+    setError(err.response?.data?.error || 'Verification failed');
+  } finally {
+    setLoading(false);
+  }
+};
 
-  
   if (loading) return <p>Loading challenge...</p>;
   if (error) return <p style={{ color: 'red' }}>{error}</p>;
   if (!challenge) return <p>No challenge found</p>;
@@ -102,41 +101,59 @@ export default function Challenge() {
             onClick={handleSubmit}
             disabled={loading}
             style={{
-            width: '100%',
-            padding: '10px',
-            backgroundColor: '#1F4E78',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            fontSize: '16px',
-            opacity: loading ? 0.6 : 1,
+              width: '100%',
+              padding: '10px',
+              backgroundColor: '#1F4E78',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontSize: '16px',
+              opacity: loading ? 0.6 : 1,
             }}
           >
             {loading ? 'Verifying...' : 'Submit'}
           </button>
 
           {results && (
-          <div style={{
-            marginTop: '20px',
-            padding: '15px',
-            backgroundColor: results.passed ? '#d4edda' : '#f8d7da',
-            borderRadius: '4px',
-            border: `2px solid ${results.passed ? '#28a745' : '#dc3545'}`
-          }}>
-            <h3>{results.passed ? '✅ Passed!' : '❌ Failed'}</h3>
-            {results.output && (
-              <div>
-                <p><strong>Output:</strong></p>
-                <pre style={{ backgroundColor: '#f5f5f5', padding: '10px', borderRadius: '4px' }}>
-                  {results.output}
-                </pre>
-              </div>
-            )}
-            <p><strong>Breakdown:</strong> {results.breakdown}</p>
-            {results.error && <p style={{ color: 'red' }}>Error: {results.error}</p>}
-          </div>
-        )}
+            <div style={{
+              marginTop: '20px',
+              padding: '15px',
+              backgroundColor: results.passed ? '#d4edda' : '#f8d7da',
+              borderRadius: '4px',
+              border: `2px solid ${results.passed ? '#28a745' : '#dc3545'}`
+            }}>
+              <h3>{results.passed ? '✅ Passed!' : '❌ Failed'}</h3>
+              {results.output && (
+                <div>
+                  <p><strong>Output:</strong></p>
+                  <pre style={{ backgroundColor: '#f5f5f5', padding: '10px', borderRadius: '4px' }}>
+                    {results.output}
+                  </pre>
+                </div>
+              )}
+              <p><strong>Breakdown:</strong> {results.breakdown}</p>
+              {results.error && <p style={{ color: 'red' }}>Error: {results.error}</p>}
+
+              {results.passed && (
+                <div style={{ marginTop: '20px', textAlign: 'center' }}>
+                  <button
+                    onClick={() => navigate('/dashboard')}
+                    style={{
+                      padding: '10px 20px',
+                      backgroundColor: '#28a745',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '4px',
+                      cursor: 'pointer',
+                    }}
+                  >
+                    Back to Concept →
+                  </button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>

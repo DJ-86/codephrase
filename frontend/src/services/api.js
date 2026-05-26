@@ -30,12 +30,12 @@ export const conceptAPI = {
   getChallengesByConcept: (slug) => api.get(`/concepts/${slug}/challenges`),
 };
 
-
 export const challengeAPI = {
   getChallenge: (id) => api.get(`/challenges/${id}`),
   verify: (challengeId, code) =>
     api.post('/verify', { challengeId, code }),
-  submit: (challengeId, passed) =>
-    api.post('/submit', { challengeId, passed }),
+  submit: (challengeId, code, passed) =>
+    api.post('/submit', { challengeId, code, passed }),
 };
+
 export default api;

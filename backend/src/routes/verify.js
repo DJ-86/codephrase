@@ -4,7 +4,7 @@ const parser = require('@babel/parser');
 const traverse = require('@babel/traverse').default;
 const db = require('../db');
 
-// Map of expected methods to AST node checkers
+// Method checkers
 const methodCheckers = {
   'let': (ast) => hasVariableDeclaration(ast, 'let'),
   'const': (ast) => hasVariableDeclaration(ast, 'const'),
@@ -131,7 +131,7 @@ router.post('/', async (req, res) => {
 
     // Get challenge from database
     const challengeResult = await db.query(
-      'SELECT expected_method, breakdown_template FROM challenges WHERE id = $1',
+      'SELECT expected_method, breakdown_template, test_code FROM challenges WHERE id = $1',
       [challengeId]
     );
 
@@ -165,13 +165,14 @@ router.post('/', async (req, res) => {
     if (checker) {
       methodFound = checker(ast);
     } else {
-      // Fallback: if no specific checker, assume it passes
+      // Fallback: unknown method, assume passes
       methodFound = true;
     }
 
-    // Try to execute the code and capture output
+    // Execute code and capture output
     let output = '';
     let executionError = null;
+    let executionSuccess = false;
 
     try {
       const originalLog = console.log;
@@ -182,16 +183,24 @@ router.post('/', async (req, res) => {
       eval(code);
 
       console.log = originalLog;
+      executionSuccess = true;
     } catch (error) {
       executionError = error.message;
     }
 
-    // Return result
+    // Determine pass/fail
+    // For MVP: pass if method found AND code executes without error
+    const passed = methodFound && executionSuccess;
+
     res.json({
-      passed: methodFound,
+      passed,
       output: output.trim(),
       error: executionError,
-      breakdown: methodFound ? challenge.breakdown_template : `Did not use ${expectedMethod}.`,
+      breakdown: passed 
+        ? challenge.breakdown_template 
+        : executionError 
+          ? `Code error: ${executionError}`
+          : `Did not use ${expectedMethod}.`,
     });
   } catch (error) {
     res.status(500).json({ error: error.message });

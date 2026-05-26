@@ -5,19 +5,15 @@ const authMiddleware = require('../middleware/auth');
 
 router.post('/', authMiddleware, async (req, res) => {
   try {
-    const { challengeId, passed } = req.body;
+    const { challengeId, code, passed } = req.body;
     const userId = req.user.userId;
 
     if (passed) {
-      // Save to user_progress
+      // Save to submissions with code
       await db.query(
-        `INSERT INTO user_progress (user_id, concept_id, completed, attempts, completed_at)
-         SELECT $1, concept_id, true, 1, NOW()
-         FROM challenges
-         WHERE id = $2
-         ON CONFLICT (user_id, concept_id) DO UPDATE
-         SET completed = true, completed_at = NOW()`,
-        [userId, challengeId]
+        `INSERT INTO submissions (user_id, challenge_id, code, passed)
+         VALUES ($1, $2, $3, $4)`,
+        [userId, challengeId, code || '', passed]
       );
     }
 
