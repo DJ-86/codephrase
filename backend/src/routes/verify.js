@@ -166,7 +166,7 @@ router.post('/', async (req, res) => {
       methodFound = checker(ast);
     } else {
       // Fallback: unknown method, assume passes
-      methodFound = true;
+      methodFound = false;
     }
 
     // Execute code and capture output
